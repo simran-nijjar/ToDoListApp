@@ -37,6 +37,14 @@ public class TaskManager implements Iterable<TaskToDo> {
         index--;
     }
 
+    //Returns true if there are no tasks, false otherwise
+    public boolean isTaskManagerEmpty(){
+        if (taskCollection.isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
     //Iterator to iterate through list
     @NonNull
     @Override
