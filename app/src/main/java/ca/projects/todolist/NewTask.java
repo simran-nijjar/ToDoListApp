@@ -3,7 +3,6 @@ package ca.projects.todolist;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,8 +19,17 @@ import ca.projects.todolist.Models.TaskToDo;
 public class NewTask extends AppCompatActivity {
     private TaskToDo task;
     private TaskManager taskManager;
+
     private EditText taskTitleEditTxt;
     private EditText taskNotesEditTxt;
+
+    private String taskTitle;
+    private String taskNotes;
+    private String taskPriority;
+
+    public static final String EXTRA_TITLE = "ca.projects.todolist.NewTask - Title";
+    public static final String EXTRA_NOTES = "ca.projects.todolist.NewTask - Notes";
+    public static final String EXTRA_PRIORITY = "ca.projects.todolist.NewTask - Priority";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +52,8 @@ public class NewTask extends AppCompatActivity {
         s.setAdapter(adapter);
 
         //Get the text from user input
-        taskTitleEditTxt = findViewById(R.id.taskTitleLabel);
-        taskNotesEditTxt = findViewById(R.id.taskNotesLabel);
+        taskTitleEditTxt = findViewById(R.id.taskTitleInput);
+        taskNotesEditTxt = findViewById(R.id.taskNotesInput);
 
         //Call save task button
         saveTaskBtnClicked();
@@ -58,16 +66,31 @@ public class NewTask extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("SaveTaskButton", "Button clicked");
-                taskTitleEditTxt = findViewById(R.id.taskTitleLabel);
-                taskNotesEditTxt = findViewById(R.id.taskNotesLabel);
-                if (taskTitleEditTxt.getText().toString().isEmpty() == true){
+                taskTitleEditTxt = findViewById(R.id.taskTitleInput);
+                taskNotesEditTxt = findViewById(R.id.taskNotesInput);
+                Spinner mySpinner = (Spinner) findViewById(R.id.taskPrioritySpinner);
+
+                taskTitle = taskTitleEditTxt.getText().toString();
+                taskNotes = taskNotesEditTxt.getText().toString();
+                taskPriority = mySpinner.getSelectedItem().toString();
+
+                if (taskTitle.isEmpty() == true){
+                    //Display error message
                     Toast.makeText(NewTask.this,"Title can't be empty", Toast.LENGTH_LONG).show();
                 }
                 else{
+                    //Set the entered values for the task
                     task.setTitle(taskTitleEditTxt.getText().toString());
                     task.setNotes(taskNotesEditTxt.getText().toString());
+                    task.setPriority(taskPriority);
+                    Toast.makeText(NewTask.this, "Task saved", Toast.LENGTH_SHORT).show();
+
                     taskManager.addTask(task);
+                    Intent intent = new Intent(NewTask.this, MainPage.class);
+                    intent.putExtra(EXTRA_TITLE, taskTitle);
+                    intent.putExtra(EXTRA_NOTES, taskNotes);
+                    intent.putExtra(EXTRA_PRIORITY, taskPriority);
+                    startActivity(intent);
                     finish();
                 }
             }

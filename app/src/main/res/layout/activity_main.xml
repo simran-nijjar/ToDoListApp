@@ -6,14 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".MainPage">
 
+    <ListView
+        android:id="@+id/tasksListView"
+        android:layout_width="376dp"
+        android:layout_height="626dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.542"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/addTaskBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="Add New Task"
+        android:text="@string/add_new_task"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.902"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tasksListView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

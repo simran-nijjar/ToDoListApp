@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
 import ca.projects.todolist.Models.TaskManager;
+import ca.projects.todolist.Models.TaskToDo;
 
 public class MainPage extends AppCompatActivity {
     //Create task manager object to manage tasks
@@ -18,12 +21,29 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //Get instance of task manager
         taskManager = TaskManager.getInstance();
-        //Display main page
-        if (taskManager.isTaskManagerEmpty() == true){
+        //Display empty page if task manager is empty
+        if (taskManager.getTaskManagerSize() == 0){
             setContentView(R.layout.empty_to_do_list);
         }
-        else{
+        //Else display the list of tasks
+        else {
             setContentView(R.layout.activity_main);
+            populateTasksListView();
+        }
+        addNewTaskBtnClicked();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //Display empty page if task manager is empty
+        if (taskManager.getTaskManagerSize() == 0){
+            setContentView(R.layout.empty_to_do_list);
+        }
+        //Else display the list of tasks
+        else {
+            setContentView(R.layout.activity_main);
+            populateTasksListView();
         }
         addNewTaskBtnClicked();
     }
@@ -38,4 +58,26 @@ public class MainPage extends AppCompatActivity {
             }
         });
     }
+
+    private void populateTasksListView(){
+        String strTasks[] = new String[taskManager.getTaskManagerSize()];
+        int count = 0;
+        //Get tasks into a string array
+        for (TaskToDo task: taskManager){
+            strTasks[count] = task.getTitle();
+            count++;
+        }
+
+        //If there is at least one task, display the task(s) in the list view
+        if (count > 0){
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                    this,
+                    R.layout.list_of_tasks,
+                    strTasks);
+            //Display the games in the list
+            ListView list = findViewById(R.id.tasksListView);
+            list.setAdapter(adapter);
+        }
+    }
 }
+

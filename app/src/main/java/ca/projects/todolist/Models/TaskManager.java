@@ -8,13 +8,13 @@ import java.util.List;
 
 //This class stores the collection of tasks
 public class TaskManager implements Iterable<TaskToDo> {
-    private int index;
+    private int size;
     private List<TaskToDo> taskCollection = new ArrayList<>();
     private static TaskManager instance;
 
-    //Contructor
-    public TaskManager(){
-        this.index = 0;
+    //Constructor
+    private TaskManager(){
+        this.size = 0;
     }
 
     //Gets singleton
@@ -28,27 +28,24 @@ public class TaskManager implements Iterable<TaskToDo> {
     //Adds a task to the to do list
     public void addTask(TaskToDo task){
         taskCollection.add(task);
-        index++;
+        size++;
     }
 
     //Removes a task from the to do list
     public void deleteTask(int index){
         taskCollection.remove(index);
-        index--;
+        size--;
     }
 
-    //Returns true if there are no tasks, false otherwise
-    public boolean isTaskManagerEmpty(){
-        if (taskCollection.isEmpty()){
-            return true;
-        }
-        return false;
+    //Returns size of task manager
+    public Integer getTaskManagerSize(){
+        return this.size;
     }
 
     //Iterator to iterate through list
     @NonNull
     @Override
     public Iterator<TaskToDo> iterator() {
-        return null;
+        return taskCollection.listIterator();
     }
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/taskTitleLabel"
+        android:id="@+id/taskTitleInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -30,13 +30,13 @@
         app:layout_constraintTop_toBottomOf="@+id/taskNotesTxt" />
 
     <EditText
-        android:id="@+id/taskNotesLabel"
+        android:id="@+id/taskNotesInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/taskTitleLabel"
+        app:layout_constraintEnd_toEndOf="@+id/taskTitleInput"
         app:layout_constraintHorizontal_bias="0.905"
         app:layout_constraintStart_toEndOf="@+id/taskNotesTxt"
         app:layout_constraintTop_toTopOf="@+id/taskNotesTxt" />
@@ -69,7 +69,7 @@
         android:layout_width="210dp"
         android:layout_height="39dp"
         android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="@+id/taskTitleLabel"
+        app:layout_constraintEnd_toEndOf="@+id/taskTitleInput"
         app:layout_constraintHorizontal_bias="0.92"
         app:layout_constraintStart_toEndOf="@+id/taskPriorityTxt"
         app:layout_constraintTop_toTopOf="@+id/taskPriorityTxt" />
@@ -79,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
-        app:layout_constraintBottom_toTopOf="@+id/taskTitleLabel"
+        app:layout_constraintBottom_toTopOf="@+id/taskTitleInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
