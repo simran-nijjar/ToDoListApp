@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">To Do List</string>
     <string name="add_new_task">Add New Task</string>
+    <string name="title_too_long">Title is too long</string>
+    <string name="sorry_title_too_long">Sorry the max length of title is 1000 characters.</string>
+    <string name="notes_too_long">Notes are too long</string>
+    <string name="sorry_notes_too_long">Sorry the max length of notes is 4000 characters.</string>
+    <string name="ok">OK</string>
 </resources>

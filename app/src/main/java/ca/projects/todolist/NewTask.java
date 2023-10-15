@@ -1,8 +1,12 @@
 package ca.projects.todolist;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,6 +30,9 @@ public class NewTask extends AppCompatActivity {
     private String taskTitle;
     private String taskNotes;
     private String taskPriority;
+
+    private final int MAX_TITLE_LENGTH = 1000;
+    private final int MAX_NOTES_LENGTH = 4000;
 
     public static final String EXTRA_TITLE = "ca.projects.todolist.NewTask - Title";
     public static final String EXTRA_NOTES = "ca.projects.todolist.NewTask - Notes";
@@ -55,8 +62,58 @@ public class NewTask extends AppCompatActivity {
         taskTitleEditTxt = findViewById(R.id.taskTitleInput);
         taskNotesEditTxt = findViewById(R.id.taskNotesInput);
 
+        updateUI();
         //Call save task button
         saveTaskBtnClicked();
+    }
+
+    //Add text watcher for title and notes
+    private void updateUI() {
+        taskTitleEditTxt.addTextChangedListener(textWatcher);
+        taskNotesEditTxt.addTextChangedListener(textWatcher);}
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //Display alert dialog if title or notes exceed max allowed characters
+            if (taskTitleEditTxt.getText().toString().length() > MAX_TITLE_LENGTH){
+                displayMaxCharactersMessage("title");
+            }
+            if (taskNotesEditTxt.getText().toString().length() > MAX_NOTES_LENGTH){
+                displayMaxCharactersMessage("notes");
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+
+    //Displays alerts when title or notes exceeds max allowed characters
+    private void displayMaxCharactersMessage(String input) {
+            AlertDialog alertDialog = new AlertDialog.Builder(NewTask.this).create();
+            if (input == "title") {
+                alertDialog.setTitle(getString(R.string.title_too_long));
+                alertDialog.setMessage(getString(R.string.sorry_title_too_long));
+                taskTitleEditTxt.setText(taskTitleEditTxt.getText().toString().substring(0, taskTitleEditTxt.getText().toString().length() - 1));
+            }
+            else if (input == "notes"){
+                alertDialog.setTitle(getString(R.string.notes_too_long));
+                alertDialog.setMessage(getString(R.string.sorry_notes_too_long));
+                taskNotesEditTxt.setText(taskNotesEditTxt.getText().toString().substring(0, taskNotesEditTxt.getText().toString().length() - 1));
+            }
+            alertDialog.setButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    //Stay on ViewAchievement activity
+                }
+            });
+            alertDialog.show();
     }
 
     //When save button is clicked, checks to see if title is provided or not
