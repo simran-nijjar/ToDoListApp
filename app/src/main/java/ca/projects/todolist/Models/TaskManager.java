@@ -11,6 +11,8 @@ public class TaskManager implements Iterable<TaskToDo> {
     private int size;
     private List<TaskToDo> taskCollection = new ArrayList<>();
     private static TaskManager instance;
+    private int indexofCurrentTask;
+    public String priorities[] = {"Low", "Medium", "High"};
 
     //Constructor
     private TaskManager(){
@@ -41,6 +43,22 @@ public class TaskManager implements Iterable<TaskToDo> {
     public Integer getTaskManagerSize(){
         return this.size;
     }
+
+    //Returns task at specific index
+    public TaskToDo getTaskAtIndex(Integer index){
+        return taskCollection.get(index);
+    }
+
+    //Sets the index of the selected task from the list view
+    public void setIndexofCurrentTask(int indexofCurrentTask){
+        this.indexofCurrentTask = indexofCurrentTask;
+    }
+
+    public void addTaskToIndex(TaskToDo task, int index){
+        taskCollection.set(index, task);
+    }
+
+    public String[] getPriorities(){return this.priorities;}
 
     //Iterator to iterate through list
     @NonNull

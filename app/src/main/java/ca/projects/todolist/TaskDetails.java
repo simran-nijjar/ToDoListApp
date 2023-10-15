@@ -20,12 +20,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import ca.projects.todolist.Models.TaskManager;
 import ca.projects.todolist.Models.TaskToDo;
 
-public class NewTask extends AppCompatActivity {
+public class TaskDetails extends AppCompatActivity {
     private TaskToDo task;
     private TaskManager taskManager;
 
     private EditText taskTitleEditTxt;
     private EditText taskNotesEditTxt;
+    private Spinner prioritySpinner;
 
     private String taskTitle;
     private String taskNotes;
@@ -43,24 +44,44 @@ public class NewTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_task_details);
 
-        //Create task and task manager object
-        task = new TaskToDo("", "");
+        //Create task manager object
         taskManager = TaskManager.getInstance();
-
-        //Display action bar
-        ActionBar ab = getSupportActionBar();
-        ab.setTitle("Add Task");
-        ab.setDisplayHomeAsUpEnabled(true);
-
-        //Add priorities to spinner
-        Spinner s = findViewById(R.id.taskPrioritySpinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, task.getPriorities());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s.setAdapter(adapter);
 
         //Get the text from user input
         taskTitleEditTxt = findViewById(R.id.taskTitleInput);
         taskNotesEditTxt = findViewById(R.id.taskNotesInput);
+
+        //Add priorities to spinner
+        prioritySpinner = findViewById(R.id.taskPrioritySpinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, taskManager.getPriorities());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        prioritySpinner.setAdapter(adapter);
+
+        //Display action bar
+        ActionBar ab = getSupportActionBar();
+        Bundle b = getIntent().getExtras();
+        //If task is being edited
+        if (b != null){
+            ab.setTitle("Edit Task Details");
+            //Get the position of the task selected
+            int selectedTaskPosition = b.getInt(getString(R.string.selected_task_position));
+            task = taskManager.getTaskAtIndex(selectedTaskPosition);
+
+            //Get the string values of the task selected
+            taskTitle = String.valueOf(task.getTitle());
+            taskNotes = String.valueOf(task.getNotes());
+            taskPriority = String.valueOf(task.getPriority());
+
+            //Add the string value of task selected to the input fields
+            taskTitleEditTxt.setText(taskTitle);
+            taskNotesEditTxt.setText(taskNotes);
+            prioritySpinner.setSelection(task.getPriorityPosition(taskPriority));
+        }
+        //Else if new task is being added
+        else {
+            ab.setTitle("Add Task Details");
+            task = new TaskToDo("", "", "");
+        }
 
         updateUI();
         //Call save task button
@@ -97,7 +118,7 @@ public class NewTask extends AppCompatActivity {
 
     //Displays alerts when title or notes exceeds max allowed characters
     private void displayMaxCharactersMessage(String input) {
-            AlertDialog alertDialog = new AlertDialog.Builder(NewTask.this).create();
+            AlertDialog alertDialog = new AlertDialog.Builder(TaskDetails.this).create();
             if (input == "title") {
                 alertDialog.setTitle(getString(R.string.title_too_long));
                 alertDialog.setMessage(getString(R.string.sorry_title_too_long));
@@ -125,54 +146,58 @@ public class NewTask extends AppCompatActivity {
             public void onClick(View v) {
                 taskTitleEditTxt = findViewById(R.id.taskTitleInput);
                 taskNotesEditTxt = findViewById(R.id.taskNotesInput);
-                Spinner mySpinner = (Spinner) findViewById(R.id.taskPrioritySpinner);
+                prioritySpinner = findViewById(R.id.taskPrioritySpinner);
 
                 taskTitle = taskTitleEditTxt.getText().toString();
                 taskNotes = taskNotesEditTxt.getText().toString();
-                taskPriority = mySpinner.getSelectedItem().toString();
+                taskPriority = prioritySpinner.getSelectedItem().toString();
 
                 if (taskTitle.isEmpty() == true){
                     //Display error message
-                    Toast.makeText(NewTask.this,"Title can't be empty", Toast.LENGTH_LONG).show();
+                    Toast.makeText(TaskDetails.this,"Title can't be empty", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    //Set the entered values for the task
-                    task.setNotes(taskNotesEditTxt.getText().toString());
-                    task.setPriority(taskPriority);
-                    addPriorityToTitle(taskPriority);
-                    Toast.makeText(NewTask.this, "Task saved", Toast.LENGTH_SHORT).show();
-
-                    taskManager.addTask(task);
-                    Intent intent = new Intent(NewTask.this, MainPage.class);
-                    intent.putExtra(EXTRA_TITLE, taskTitle);
-                    intent.putExtra(EXTRA_NOTES, taskNotes);
-                    intent.putExtra(EXTRA_PRIORITY, taskPriority);
-                    startActivity(intent);
-                    finish();
+                    saveTaskDetails();
                 }
             }
         });
     }
 
-    //Adds exclamations to the front of the title to indicate priority
-    //!: Low, !!: Medium, !!!: High
-    public void addPriorityToTitle(String priority){
-        String exclamations = "";
-        for (int i = 0; i < task.priorities.length; i++){
-            exclamations += "!";
-            if (priority == task.priorities[i]){
-                task.setTitle(exclamations + " " + taskTitleEditTxt.getText().toString());
-                break;
-            }
-
+    //Saves task details to same position if task is being edited, else adds new task
+    private void saveTaskDetails(){
+        Bundle b = getIntent().getExtras();
+        //If task is being edited
+        if (b != null){
+            //Get the position of the task in the list view
+            int selectedTaskPosition = b.getInt(getString(R.string.selected_task_position));
+            task = taskManager.getTaskAtIndex(selectedTaskPosition);
+            Toast.makeText(TaskDetails.this, "Task saved", Toast.LENGTH_SHORT).show();
+            //Update the task details
+            task.setTitle(taskTitle);
+            task.setPriority(taskPriority);
+            task.setTitle(taskTitle);
+            //Replace the old task with the edited task
+            taskManager.addTaskToIndex(task, selectedTaskPosition);
         }
-
+        //Else if task is a new task
+        else {
+            //Set the entered values for the task
+            task = new TaskToDo(taskTitle,taskNotes, taskPriority);
+            Toast.makeText(TaskDetails.this, "Task saved", Toast.LENGTH_SHORT).show();
+            //Add new task
+            taskManager.addTask(task);
+            Intent intent = new Intent(TaskDetails.this, MainPage.class);
+            intent.putExtra(EXTRA_TITLE, taskTitle);
+            intent.putExtra(EXTRA_NOTES, taskNotes);
+            intent.putExtra(EXTRA_PRIORITY, taskPriority);
+            startActivity(intent);
+        }
+        finish();
     }
 
     //Makes an intent and returns it
     public static Intent makeIntent(Context context){
-        Intent intent = new Intent(context, NewTask.class);
+        Intent intent = new Intent(context, TaskDetails.class);
         return intent;
     }
-
 }

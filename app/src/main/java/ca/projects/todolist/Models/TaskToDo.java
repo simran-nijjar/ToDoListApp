@@ -8,9 +8,10 @@ public class TaskToDo {
     public String priorities[] = {"Low", "Medium", "High"};
 
     //Constructor
-    public TaskToDo(String title, String notes){
+    public TaskToDo(String title, String notes, String priority){
         this.title = title;
         this.notes = notes;
+        this.priority = priority;
     }
 
     //Getter function for the title of the task
@@ -25,7 +26,18 @@ public class TaskToDo {
 
     //Returns priorities array
     public String[] getPriorities(){
-        return priorities;
+        return this.priorities;
+    }
+
+    public String getPriority(){ return this.priority;}
+
+    public Integer getPriorityPosition(String priority){
+        for (int i = 0; i< priorities.length; i++){
+            if (priority == priorities[i]){
+                return i;
+            }
+        }
+        return -1;
     }
 
     //Sets title of the task

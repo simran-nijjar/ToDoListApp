@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -15,6 +16,7 @@ import ca.projects.todolist.Models.TaskToDo;
 public class MainPage extends AppCompatActivity {
     //Create task manager object to manage tasks
     private TaskManager taskManager;
+    private ListView list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class MainPage extends AppCompatActivity {
         else {
             setContentView(R.layout.activity_main);
             populateTasksListView();
+            registerClickCallBack();
         }
         addNewTaskBtnClicked();
     }
@@ -53,7 +56,7 @@ public class MainPage extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = NewTask.makeIntent(MainPage.this);
+                Intent intent = TaskDetails.makeIntent(MainPage.this);
                 startActivity(intent);
             }
         });
@@ -75,9 +78,22 @@ public class MainPage extends AppCompatActivity {
                     R.layout.list_of_tasks,
                     strTasks);
             //Display the games in the list
-            ListView list = findViewById(R.id.tasksListView);
+            list = findViewById(R.id.tasksListView);
             list.setAdapter(adapter);
         }
+    }
+
+    //Listens for when user clicks an item on the list view
+    private void registerClickCallBack(){
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                taskManager.setIndexofCurrentTask(position);
+                Intent intent = new Intent(MainPage.this, TaskDetails.class);
+                intent.putExtra(getString(R.string.selected_task_position), position);
+                startActivity(intent);
+            }
+        });
     }
 }
 

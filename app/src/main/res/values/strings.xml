@@ -6,4 +6,5 @@
     <string name="notes_too_long">Notes are too long</string>
     <string name="sorry_notes_too_long">Sorry the max length of notes is 4000 characters.</string>
     <string name="ok">OK</string>
+    <string name="selected_task_position">selected position</string>
 </resources>
