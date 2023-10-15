@@ -76,13 +76,16 @@ public class TaskDetails extends AppCompatActivity {
             taskTitleEditTxt.setText(taskTitle);
             taskNotesEditTxt.setText(taskNotes);
             prioritySpinner.setSelection(task.getPriorityPosition(taskPriority));
+            displayDeleteTaskBtn(selectedTaskPosition);
         }
         //Else if new task is being added
         else {
             ab.setTitle("Add Task Details");
             task = new TaskToDo("", "", "");
+            //Hide delete button
+            Button btn = findViewById(R.id.deleteTaskBtn);
+            btn.setVisibility(View.INVISIBLE);
         }
-
         updateUI();
         //Call save task button
         saveTaskBtnClicked();
@@ -193,6 +196,30 @@ public class TaskDetails extends AppCompatActivity {
             startActivity(intent);
         }
         finish();
+    }
+
+    //Display delete button for when task is being edited
+    private void displayDeleteTaskBtn(int position){
+        Button btn = findViewById(R.id.deleteTaskBtn);
+        btn.setVisibility(View.VISIBLE);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Alert dialog to confirm with user if task should be deleted
+                AlertDialog.Builder builder = new AlertDialog.Builder(TaskDetails.this);
+                builder.setMessage(getString(R.string.delete_task_msg))
+                        .setCancelable(false)
+                        .setPositiveButton(getString(R.string.delete), (dialog, id) -> {
+                            taskManager.deleteTask(position);
+                            Intent intent = new Intent(TaskDetails.this, MainPage.class);
+                            startActivity(intent);
+
+                        })
+                        .setNegativeButton(getString(R.string.cancel), (dialog, id) -> dialog.cancel());
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
     }
 
     //Makes an intent and returns it

@@ -5,47 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/deleteTaskBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="Delete"
+        app:layout_constraintEnd_toStartOf="@+id/saveTaskBtn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/taskTitleTxt"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/taskTitleInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="60dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.966"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/taskTitleTxt"
-        app:layout_constraintTop_toTopOf="@+id/taskTitleTxt" />
-
-    <TextView
-        android:id="@+id/taskPriorityTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="Priority"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/taskTitleTxt"
-        app:layout_constraintTop_toBottomOf="@+id/taskNotesTxt" />
-
-    <EditText
-        android:id="@+id/taskNotesInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/taskTitleInput"
-        app:layout_constraintHorizontal_bias="0.905"
-        app:layout_constraintStart_toEndOf="@+id/taskNotesTxt"
-        app:layout_constraintTop_toTopOf="@+id/taskNotesTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/deleteTaskBtn" />
 
     <TextView
         android:id="@+id/taskNotesTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="68dp"
         android:text="Notes"
         android:textColor="#000000"
         android:textSize="20sp"
@@ -56,33 +44,57 @@
         android:id="@+id/taskTitleTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="48dp"
         android:text="Title"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/deleteTaskBtn" />
 
-    <Spinner
-        android:id="@+id/taskPrioritySpinner"
-        android:layout_width="210dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="32dp"
+    <TextView
+        android:id="@+id/taskPriorityTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:text="Priority"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/taskTitleTxt"
+        app:layout_constraintTop_toBottomOf="@+id/taskNotesTxt" />
+
+    <EditText
+        android:id="@+id/taskNotesInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/taskTitleInput"
-        app:layout_constraintHorizontal_bias="0.92"
-        app:layout_constraintStart_toEndOf="@+id/taskPriorityTxt"
-        app:layout_constraintTop_toTopOf="@+id/taskPriorityTxt" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/taskNotesTxt"
+        app:layout_constraintTop_toBottomOf="@+id/taskTitleInput" />
 
     <Button
         android:id="@+id/saveTaskBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
         android:text="Save"
         app:layout_constraintBottom_toTopOf="@+id/taskTitleInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.863"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Spinner
+        android:id="@+id/taskPrioritySpinner"
+        android:layout_width="210dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="@+id/taskTitleInput"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/taskPriorityTxt"
+        app:layout_constraintTop_toBottomOf="@+id/taskNotesInput" />
 </androidx.constraintlayout.widget.ConstraintLayout>

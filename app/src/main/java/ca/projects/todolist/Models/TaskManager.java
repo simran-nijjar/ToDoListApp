@@ -54,10 +54,12 @@ public class TaskManager implements Iterable<TaskToDo> {
         this.indexofCurrentTask = indexofCurrentTask;
     }
 
+    //Adds task to index given
     public void addTaskToIndex(TaskToDo task, int index){
         taskCollection.set(index, task);
     }
 
+    //Returns the priorities array
     public String[] getPriorities(){return this.priorities;}
 
     //Iterator to iterate through list
