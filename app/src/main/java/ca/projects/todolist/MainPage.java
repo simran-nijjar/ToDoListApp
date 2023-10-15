@@ -2,6 +2,7 @@ package ca.projects.todolist;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -32,7 +33,8 @@ public class MainPage extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.add_task_details);
+                Intent intent = NewTask.makeIntent(MainPage.this);
+                startActivity(intent);
             }
         });
     }

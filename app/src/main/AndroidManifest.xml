@@ -12,9 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ToDoList"
         tools:targetApi="31">
+        <activity android:name=".NewTask"
+            android:exported="true"
+            android:label="Add Task"
+            android:parentActivityName=".MainPage"/>
         <activity
             android:name=".MainPage"
-            android:exported="true">
+            android:exported="true"
+            android:label="To Do List">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
