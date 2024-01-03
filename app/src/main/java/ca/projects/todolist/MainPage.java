@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,7 +19,7 @@ import ca.projects.todolist.Models.TaskToDo;
 
 public class MainPage extends AppCompatActivity {
     //Create task manager object to manage tasks
-    private TaskManager taskManager;
+    private TaskManager taskManager = TaskManager.getInstance();
     private SaveUsingGson toSaveUsingGsonAndSP = new SaveUsingGson();
 
     @Override
@@ -45,15 +46,16 @@ public class MainPage extends AppCompatActivity {
 
     //Gets details for main page
     private void getMainPageDetails() {
-        taskManager = TaskManager.getInstance();
         //Display empty page if task manager is empty
         if (taskManager.getTaskManagerSize() == 0){
             setContentView(R.layout.empty_to_do_list);
+            Log.d("MainPage", "No tasks to display");
         }
         //Else display the list of tasks
         else {
             setContentView(R.layout.activity_main);
-            populateTasksListView(taskManager);
+            populateTasksListView();
+            Log.d("MainPage", "Tasks are present. Number of tasks: " + taskManager.getTaskManagerSize());
         }
         addNewTaskBtnClicked();
     }
@@ -71,7 +73,7 @@ public class MainPage extends AppCompatActivity {
     }
 
     //Populates list view with tasks if there are any
-    private void populateTasksListView(TaskManager taskManager){
+    private void populateTasksListView(){
         ArrayAdapter<TaskToDo> adapter1 = new MyListAdapter();
         ListView list = findViewById(R.id.tasksListView);
         list.setAdapter(adapter1);
@@ -102,7 +104,6 @@ public class MainPage extends AppCompatActivity {
     private void registerClickCallBack(){
         ListView list = findViewById(R.id.tasksListView);
         list.setOnItemClickListener((parent, viewClicked, position, id) -> {
-
             taskManager.setIndexofCurrentTask(position);
             //make an intent for view configuration activity
             Intent intent = TaskDetails.makeIntent(MainPage.this);

@@ -24,7 +24,6 @@ import ca.projects.todolist.Models.TaskToDo;
 
 public class TaskDetails extends AppCompatActivity {
     private TaskToDo task;
-    private TaskManager taskManager;
     private SaveUsingGson toSaveUsingGsonAndSP = new SaveUsingGson();
 
     private EditText taskTitleEditTxt;
@@ -63,7 +62,7 @@ public class TaskDetails extends AppCompatActivity {
 
     //Gets task details
     private void getTaskDetails() {
-        taskManager = TaskManager.getInstance();
+        TaskManager taskManager = TaskManager.getInstance();
 
         //Get the text from user input
         taskTitleEditTxt = findViewById(R.id.taskTitleInput);
@@ -83,7 +82,8 @@ public class TaskDetails extends AppCompatActivity {
             ab.setTitle("Edit Task Details");
             //Get the position of the task selected
             int selectedTaskPosition = b.getInt(getString(R.string.selected_task_position));
-            task = taskManager.getTaskAtIndex(selectedTaskPosition);
+            int currentPosition = taskManager.getIndexofCurrentTask();
+            task = taskManager.getTaskAtIndex(currentPosition);
 
             //Get the string values of the task selected
             taskTitle = String.valueOf(task.getTitle());
@@ -94,7 +94,7 @@ public class TaskDetails extends AppCompatActivity {
             taskTitleEditTxt.setText(taskTitle);
             taskNotesEditTxt.setText(taskNotes);
             prioritySpinner.setSelection(task.getPriorityPosition(taskPriority));
-            displayDeleteTaskBtn(selectedTaskPosition);
+            displayDeleteTaskBtn(currentPosition);
         }
         //Else if new task is being added
         else {
@@ -139,12 +139,12 @@ public class TaskDetails extends AppCompatActivity {
     //Displays alerts when title or notes exceeds max allowed characters
     private void displayMaxCharactersMessage(String input) {
             AlertDialog alertDialog = new AlertDialog.Builder(TaskDetails.this).create();
-            if (input == "title") {
+            if (input.equals("title")) {
                 alertDialog.setTitle(getString(R.string.title_too_long));
                 alertDialog.setMessage(getString(R.string.sorry_title_too_long));
                 taskTitleEditTxt.setText(taskTitleEditTxt.getText().toString().substring(0, taskTitleEditTxt.getText().toString().length() - 1));
             }
-            else if (input == "notes"){
+            else if (input.equals("notes")){
                 alertDialog.setTitle(getString(R.string.notes_too_long));
                 alertDialog.setMessage(getString(R.string.sorry_notes_too_long));
                 taskNotesEditTxt.setText(taskNotesEditTxt.getText().toString().substring(0, taskNotesEditTxt.getText().toString().length() - 1));
@@ -172,7 +172,7 @@ public class TaskDetails extends AppCompatActivity {
                 taskNotes = taskNotesEditTxt.getText().toString();
                 taskPriority = prioritySpinner.getSelectedItem().toString();
 
-                if (taskTitle.isEmpty() == true){
+                if (taskTitle.isEmpty()){
                     //Display error message
                     Toast.makeText(TaskDetails.this,"Title can't be empty", Toast.LENGTH_LONG).show();
                 }
@@ -190,6 +190,7 @@ public class TaskDetails extends AppCompatActivity {
         if (b != null){
             //Get the position of the task in the list view
             int selectedTaskPosition = b.getInt(getString(R.string.selected_task_position));
+            TaskManager taskManager = TaskManager.getInstance();
             task = taskManager.getTaskAtIndex(selectedTaskPosition);
             Toast.makeText(TaskDetails.this, "Task saved", Toast.LENGTH_SHORT).show();
             //Update the task details
@@ -211,9 +212,9 @@ public class TaskDetails extends AppCompatActivity {
             intent.putExtra(EXTRA_TITLE, taskTitle);
             intent.putExtra(EXTRA_NOTES, taskNotes);
             intent.putExtra(EXTRA_PRIORITY, taskPriority);
-//            startActivity(intent);
         }
         finish();
+        toSaveUsingGsonAndSP.saveToSharedRefs(TaskDetails.this);
     }
 
     //Display delete button for when task is being edited
@@ -228,6 +229,7 @@ public class TaskDetails extends AppCompatActivity {
                 builder.setMessage(getString(R.string.delete_task_msg))
                         .setCancelable(false)
                         .setPositiveButton(getString(R.string.delete), (dialog, id) -> {
+                            TaskManager taskManager = TaskManager.getInstance();
                             taskManager.deleteTask(position);
                             toSaveUsingGsonAndSP.saveToSharedRefs(TaskDetails.this);
                             Intent intent = new Intent(TaskDetails.this, MainPage.class);

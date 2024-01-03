@@ -4,6 +4,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,6 +26,7 @@ public class SaveUsingGson {
 
     //To save config manager
     public void saveToSharedRefs(Context newContext){
+        Log.d("TaskManager", "Saving task manager to SharedPreferences");
         this.context = newContext;
         newPrefs = context.getSharedPreferences(context.getString(R.string.save_task_manager),MODE_PRIVATE);
         editor = newPrefs.edit();
@@ -35,6 +37,7 @@ public class SaveUsingGson {
 
     //Retrieve config manager
     public void retrieveFromSharedPrefs(Context newContext){
+        Log.d("TaskManager", "Retrieving tasks from SharedPreferences");
         this.context = newContext;
         newPrefs = context.getSharedPreferences(context.getString(R.string.save_task_manager),MODE_PRIVATE);
         editor = newPrefs.edit();
