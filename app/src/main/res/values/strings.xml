@@ -10,4 +10,7 @@
     <string name="delete_task_msg">Are you sure you want to delete?</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string name="save_task_manager">Save task manager</string>
+    <string name="my_object">My object</string>
+    <string name="no_manager_saved">No manager saved</string>
 </resources>

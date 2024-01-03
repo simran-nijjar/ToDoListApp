@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,12 +18,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import ca.projects.todolist.Models.SaveUsingGson;
 import ca.projects.todolist.Models.TaskManager;
 import ca.projects.todolist.Models.TaskToDo;
 
 public class TaskDetails extends AppCompatActivity {
     private TaskToDo task;
     private TaskManager taskManager;
+    private SaveUsingGson toSaveUsingGsonAndSP = new SaveUsingGson();
 
     private EditText taskTitleEditTxt;
     private EditText taskNotesEditTxt;
@@ -43,8 +46,23 @@ public class TaskDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_task_details);
-
         //Create task manager object
+        getTaskDetails();
+        updateUI();
+        //Call save task button
+        saveTaskBtnClicked();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getTaskDetails();
+        //To save config manager
+        toSaveUsingGsonAndSP.saveToSharedRefs(TaskDetails.this);
+    }
+
+    //Gets task details
+    private void getTaskDetails() {
         taskManager = TaskManager.getInstance();
 
         //Get the text from user input
@@ -86,9 +104,8 @@ public class TaskDetails extends AppCompatActivity {
             Button btn = findViewById(R.id.deleteTaskBtn);
             btn.setVisibility(View.INVISIBLE);
         }
-        updateUI();
-        //Call save task button
-        saveTaskBtnClicked();
+        //to save config manager
+        toSaveUsingGsonAndSP.saveToSharedRefs(TaskDetails.this);
     }
 
     //Add text watcher for title and notes
@@ -177,8 +194,8 @@ public class TaskDetails extends AppCompatActivity {
             Toast.makeText(TaskDetails.this, "Task saved", Toast.LENGTH_SHORT).show();
             //Update the task details
             task.setTitle(taskTitle);
-            task.setPriority(taskPriority);
-            task.setTitle(taskTitle);
+            task.setNotes(taskNotes);
+            task.setPriority(prioritySpinner.getSelectedItem().toString());
             //Replace the old task with the edited task
             taskManager.addTaskToIndex(task, selectedTaskPosition);
         }
@@ -186,6 +203,7 @@ public class TaskDetails extends AppCompatActivity {
         else {
             //Set the entered values for the task
             task = new TaskToDo(taskTitle,taskNotes, taskPriority);
+            TaskManager taskManager = TaskManager.getInstance();
             Toast.makeText(TaskDetails.this, "Task saved", Toast.LENGTH_SHORT).show();
             //Add new task
             taskManager.addTask(task);
@@ -193,7 +211,7 @@ public class TaskDetails extends AppCompatActivity {
             intent.putExtra(EXTRA_TITLE, taskTitle);
             intent.putExtra(EXTRA_NOTES, taskNotes);
             intent.putExtra(EXTRA_PRIORITY, taskPriority);
-            startActivity(intent);
+//            startActivity(intent);
         }
         finish();
     }
@@ -211,6 +229,7 @@ public class TaskDetails extends AppCompatActivity {
                         .setCancelable(false)
                         .setPositiveButton(getString(R.string.delete), (dialog, id) -> {
                             taskManager.deleteTask(position);
+                            toSaveUsingGsonAndSP.saveToSharedRefs(TaskDetails.this);
                             Intent intent = new Intent(TaskDetails.this, MainPage.class);
                             startActivity(intent);
 

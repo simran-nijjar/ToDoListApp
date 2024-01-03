@@ -62,6 +62,12 @@ public class TaskManager implements Iterable<TaskToDo> {
     //Returns the priorities array
     public String[] getPriorities(){return this.priorities;}
 
+    //Returns the list of tasks
+    public List<TaskToDo> getListOfTasks() {return taskCollection;}
+
+    //Sets the list of tasks
+    public void setListOfTasks(List<TaskToDo> newList) {this.taskCollection = newList;}
+
     //Iterator to iterate through list
     @NonNull
     @Override
