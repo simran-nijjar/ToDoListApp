@@ -24,16 +24,13 @@ public class TaskToDo {
         return this.notes;
     }
 
-    //Returns priorities array
-    public String[] getPriorities(){
-        return this.priorities;
-    }
-
+    //Gets the selected priority
     public String getPriority(){ return this.priority;}
 
+    //Gets the position of the priority in the priorities array
     public Integer getPriorityPosition(String priority){
         for (int i = 0; i< priorities.length; i++){
-            if (priority == priorities[i]){
+            if (priority.equals(priorities[i])){
                 return i;
             }
         }
