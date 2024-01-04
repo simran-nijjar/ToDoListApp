@@ -11,12 +11,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import ca.projects.todolist.Models.SaveUsingGson;
 import ca.projects.todolist.Models.TaskManager;
 import ca.projects.todolist.Models.TaskToDo;
 
+//This class displays the first page the user sees when they launch the app
+//Here they can view their tasks to do and add new tasks
 public class MainPage extends AppCompatActivity {
     //Create task manager object to manage tasks
     private TaskManager taskManager = TaskManager.getInstance();
@@ -57,7 +60,45 @@ public class MainPage extends AppCompatActivity {
             populateTasksListView();
             Log.d("MainPage", "Tasks are present. Number of tasks: " + taskManager.getTaskManagerSize());
         }
+        //Spinner details
+        addSortBySpinnerDetails();
+        //Add new task button
         addNewTaskBtnClicked();
+    }
+
+    //Add details to spinner to sort tasks alphabetically or by priority
+    private void addSortBySpinnerDetails() {
+        //Add spinner options
+        Spinner sortBySpinner = findViewById(R.id.sortBySpinner);
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.sort_options,  // Define string array in resources/values/arrays.xml
+                android.R.layout.simple_spinner_item
+        );
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sortBySpinner.setAdapter(spinnerAdapter);
+
+        sortBySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                //Handle sorting based on selected option
+                String selectedOption = (String) parentView.getItemAtPosition(position);
+                if ("Alphabetical".equals(selectedOption)) {
+                    taskManager.sortTasksAlphabetically();
+                } else if ("Priority".equals(selectedOption)) {
+                    taskManager.sortTasksByPriority();
+                }
+                //Update the ListView
+                ListView list = findViewById(R.id.tasksListView);
+                ArrayAdapter<TaskToDo> adapter = (ArrayAdapter<TaskToDo>) list.getAdapter();
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                //Do nothing
+            }
+        });
     }
 
     //Button to add new tasks
@@ -74,9 +115,9 @@ public class MainPage extends AppCompatActivity {
 
     //Populates list view with tasks if there are any
     private void populateTasksListView(){
-        ArrayAdapter<TaskToDo> adapter1 = new MyListAdapter();
+        ArrayAdapter<TaskToDo> adapter = new MyListAdapter();
         ListView list = findViewById(R.id.tasksListView);
-        list.setAdapter(adapter1);
+        list.setAdapter(adapter);
     }
 
     private class MyListAdapter extends ArrayAdapter<TaskToDo> {

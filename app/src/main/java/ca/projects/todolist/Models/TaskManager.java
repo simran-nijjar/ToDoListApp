@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +72,26 @@ public class TaskManager implements Iterable<TaskToDo> {
 
     //Sets the list of tasks
     public void setListOfTasks(List<TaskToDo> newList) {this.taskCollection = newList;}
+
+    //Sorts items in to do list alphabetically
+    public void sortTasksAlphabetically() {
+        Collections.sort(taskCollection, new Comparator<TaskToDo>() {
+            @Override
+            public int compare(TaskToDo task1, TaskToDo task2) {
+                return task1.getTitle().compareToIgnoreCase(task2.getTitle());
+            }
+        });
+    }
+
+    //Sorts items in to do list by priority
+    public void sortTasksByPriority(){
+        Collections.sort(taskCollection, new Comparator<TaskToDo>() {
+            @Override
+            public int compare(TaskToDo task1, TaskToDo task2) {
+                return task1.getPriorityPosition(task1.getPriority()).compareTo(task2.getPriorityPosition(task2.getPriority()));
+            }
+        });
+    }
 
     //Iterator to iterate through list
     @NonNull
