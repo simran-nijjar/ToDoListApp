@@ -15,6 +15,7 @@ public class TaskManager implements Iterable<TaskToDo> {
     private List<TaskToDo> taskCollection = new ArrayList<>();
     private static TaskManager instance;
     private int indexofCurrentTask;
+    private int indexofSortOption;
     public String priorities[] = {"Low", "Medium", "High"};
 
     //Constructor
@@ -54,9 +55,17 @@ public class TaskManager implements Iterable<TaskToDo> {
         return indexofCurrentTask;
     }
 
+    //Gets index of the selected sort option
+    public int getIndexofSortOption(){ return  indexofSortOption; }
+
     //Sets the index of the selected task from the list view
     public void setIndexofCurrentTask(int indexofCurrentTask){
         this.indexofCurrentTask = indexofCurrentTask;
+    }
+
+    //Sets the index of the selected sort option
+    public void setIndexofSortOption(int indexofSortOption){
+        this.indexofSortOption = indexofSortOption;
     }
 
     //Adds task to index given
@@ -89,6 +98,16 @@ public class TaskManager implements Iterable<TaskToDo> {
             @Override
             public int compare(TaskToDo task1, TaskToDo task2) {
                 return task1.getPriorityPosition(task1.getPriority()).compareTo(task2.getPriorityPosition(task2.getPriority()));
+            }
+        });
+    }
+
+    //Sorts items in to do list by date created
+    public void sortTasksByDateCreated(){
+        Collections.sort(taskCollection, new Comparator<TaskToDo>() {
+            @Override
+            public int compare(TaskToDo task1, TaskToDo task2) {
+                return task1.getDateCreated().compareTo(task2.getDateCreated());
             }
         });
     }

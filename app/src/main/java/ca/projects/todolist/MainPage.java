@@ -52,13 +52,11 @@ public class MainPage extends AppCompatActivity {
         //Display empty page if task manager is empty
         if (taskManager.getTaskManagerSize() == 0){
             setContentView(R.layout.empty_to_do_list);
-            Log.d("MainPage", "No tasks to display");
         }
         //Else display the list of tasks
         else {
             setContentView(R.layout.activity_main);
             populateTasksListView();
-            Log.d("MainPage", "Tasks are present. Number of tasks: " + taskManager.getTaskManagerSize());
         }
         //Spinner details
         addSortBySpinnerDetails();
@@ -66,7 +64,7 @@ public class MainPage extends AppCompatActivity {
         addNewTaskBtnClicked();
     }
 
-    //Add details to spinner to sort tasks alphabetically or by priority
+    //Add details to spinner to sort tasks alphabetically, by priority, or date created
     private void addSortBySpinnerDetails() {
         //Add spinner options
         Spinner sortBySpinner = findViewById(R.id.sortBySpinner);
@@ -77,6 +75,7 @@ public class MainPage extends AppCompatActivity {
         );
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sortBySpinner.setAdapter(spinnerAdapter);
+        sortBySpinner.setSelection(taskManager.getIndexofSortOption());
 
         sortBySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -87,11 +86,15 @@ public class MainPage extends AppCompatActivity {
                     taskManager.sortTasksAlphabetically();
                 } else if ("Priority".equals(selectedOption)) {
                     taskManager.sortTasksByPriority();
+                } else if ("Date Created".equals(selectedOption)){
+                    taskManager.sortTasksByDateCreated();
                 }
                 //Update the ListView
                 ListView list = findViewById(R.id.tasksListView);
                 ArrayAdapter<TaskToDo> adapter = (ArrayAdapter<TaskToDo>) list.getAdapter();
                 adapter.notifyDataSetChanged();
+                taskManager.setIndexofSortOption(sortBySpinner.getSelectedItemPosition());
+                toSaveUsingGsonAndSP.saveToSharedRefs(MainPage.this);
             }
 
             @Override
@@ -126,13 +129,13 @@ public class MainPage extends AppCompatActivity {
         }
         @Override
         public View getView(int position, View convertView, ViewGroup parent){
-            //makes a view to work with
+            //Make a view
             View itemView = convertView;
             if(itemView == null){
                 itemView = getLayoutInflater().inflate(R.layout.task_list, parent, false);
             }
             TaskToDo currentTask = taskManager.getTaskAtIndex(position);
-            //file the textView
+            //Add task details to item in list view
             TextView makeText = itemView.findViewById(R.id.task_name_txt);
             String taskName = currentTask.getPriorityExclamation() + " " + currentTask.getTitle() + "\n";
             makeText.setText(taskName);

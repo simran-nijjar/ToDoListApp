@@ -2,6 +2,7 @@
 <resources>
 <string-array name="sort_options">
     <item>Alphabetical</item>
+    <item>Date Created</item>
     <item>Priority</item>
 </string-array>
 </resources>
