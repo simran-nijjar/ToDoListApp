@@ -93,7 +93,7 @@ public class MainPage extends AppCompatActivity {
             TaskToDo currentTask = taskManager.getTaskAtIndex(position);
             //file the textView
             TextView makeText = itemView.findViewById(R.id.task_name_txt);
-            String taskName = "\n" + currentTask.getTitle() + "\n";
+            String taskName = currentTask.getPriorityExclamation() + " " + currentTask.getTitle() + "\n";
             makeText.setText(taskName);
 
             return itemView;

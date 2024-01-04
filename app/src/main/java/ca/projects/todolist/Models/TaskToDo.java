@@ -37,6 +37,19 @@ public class TaskToDo {
         return -1;
     }
 
+    //Returns the exclamation value for priority
+    //! = low, !! = medium, !!! = high
+    public String getPriorityExclamation(){
+        String priority = "";
+        for (int i = 0; i< priorities.length; i++){
+            priority += "!";
+            if (getPriority().equals(priorities[i])){
+                return priority;
+            }
+        }
+        return priority;
+    }
+
     //Sets title of the task
     public void setTitle(String title){
         this.title = title;
