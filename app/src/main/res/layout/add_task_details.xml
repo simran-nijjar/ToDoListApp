@@ -97,4 +97,27 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/taskPriorityTxt"
         app:layout_constraintTop_toBottomOf="@+id/taskNotesInput" />
+
+    <TextView
+        android:id="@+id/dateCreatedTitleTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="Date Created"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/taskPriorityTxt"
+        app:layout_constraintTop_toBottomOf="@+id/taskPriorityTxt" />
+
+    <TextView
+        android:id="@+id/dateCreatedTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.165"
+        app:layout_constraintStart_toEndOf="@+id/dateCreatedTitleTxt"
+        app:layout_constraintTop_toBottomOf="@+id/taskPriorityTxt" />
 </androidx.constraintlayout.widget.ConstraintLayout>

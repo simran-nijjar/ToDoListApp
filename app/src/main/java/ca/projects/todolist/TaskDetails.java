@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -22,6 +23,7 @@ import ca.projects.todolist.Models.SaveUsingGson;
 import ca.projects.todolist.Models.TaskManager;
 import ca.projects.todolist.Models.TaskToDo;
 
+//This class displays the individual task details when the user is adding or editing a task
 public class TaskDetails extends AppCompatActivity {
     private TaskToDo task;
     private SaveUsingGson toSaveUsingGsonAndSP = new SaveUsingGson();
@@ -29,10 +31,13 @@ public class TaskDetails extends AppCompatActivity {
     private EditText taskTitleEditTxt;
     private EditText taskNotesEditTxt;
     private Spinner prioritySpinner;
+    private TextView taskDateCreatedEditTxt;
+    private TextView dateCreatedTitleTxt;
 
     private String taskTitle;
     private String taskNotes;
     private String taskPriority;
+    private String taskDateCreated;
 
     private final int MAX_TITLE_LENGTH = 1000;
     private final int MAX_NOTES_LENGTH = 4000;
@@ -40,6 +45,7 @@ public class TaskDetails extends AppCompatActivity {
     public static final String EXTRA_TITLE = "ca.projects.todolist.NewTask - Title";
     public static final String EXTRA_NOTES = "ca.projects.todolist.NewTask - Notes";
     public static final String EXTRA_PRIORITY = "ca.projects.todolist.NewTask - Priority";
+    public static final String EXTRA_DATE_CREATED = "ca.projects.todolist.NewTask - Date Created";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +73,8 @@ public class TaskDetails extends AppCompatActivity {
         //Get the text from user input
         taskTitleEditTxt = findViewById(R.id.taskTitleInput);
         taskNotesEditTxt = findViewById(R.id.taskNotesInput);
+        taskDateCreatedEditTxt = findViewById(R.id.dateCreatedTxt);
+        dateCreatedTitleTxt = findViewById(R.id.dateCreatedTitleTxt);
 
         //Add priorities to spinner
         prioritySpinner = findViewById(R.id.taskPrioritySpinner);
@@ -89,6 +97,10 @@ public class TaskDetails extends AppCompatActivity {
             taskTitle = String.valueOf(task.getTitle());
             taskNotes = String.valueOf(task.getNotes());
             taskPriority = String.valueOf(task.getPriority());
+            taskDateCreated = String.valueOf(task.getDateCreated());
+            dateCreatedTitleTxt.setVisibility(View.VISIBLE);
+            taskDateCreatedEditTxt.setVisibility(View.VISIBLE);
+            taskDateCreatedEditTxt.setText(taskDateCreated);
 
             //Add the string value of task selected to the input fields
             taskTitleEditTxt.setText(taskTitle);
@@ -100,9 +112,11 @@ public class TaskDetails extends AppCompatActivity {
         else {
             ab.setTitle("Add Task Details");
             task = new TaskToDo("", "", "");
-            //Hide delete button
+            //Hide delete button and date task is created
             Button btn = findViewById(R.id.deleteTaskBtn);
             btn.setVisibility(View.INVISIBLE);
+            dateCreatedTitleTxt.setVisibility(View.INVISIBLE);
+            taskDateCreatedEditTxt.setVisibility(View.INVISIBLE);
         }
         //to save config manager
         toSaveUsingGsonAndSP.saveToSharedRefs(TaskDetails.this);
@@ -212,6 +226,7 @@ public class TaskDetails extends AppCompatActivity {
             intent.putExtra(EXTRA_TITLE, taskTitle);
             intent.putExtra(EXTRA_NOTES, taskNotes);
             intent.putExtra(EXTRA_PRIORITY, taskPriority);
+            intent.putExtra(EXTRA_DATE_CREATED, task.getDateCreated());
         }
         finish();
         toSaveUsingGsonAndSP.saveToSharedRefs(TaskDetails.this);

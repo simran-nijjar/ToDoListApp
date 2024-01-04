@@ -1,10 +1,14 @@
 package ca.projects.todolist.Models;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 //This class stores the details of each task
 public class TaskToDo {
     private String title;
     private String notes;
     private String priority;
+    private String dateCreated;
     public String priorities[] = {"Low", "Medium", "High"};
 
     //Constructor
@@ -12,6 +16,7 @@ public class TaskToDo {
         this.title = title;
         this.notes = notes;
         this.priority = priority;
+        this.dateCreated = getCurrentDate();
     }
 
     //Getter function for the title of the task
@@ -26,6 +31,19 @@ public class TaskToDo {
 
     //Gets the selected priority
     public String getPriority(){ return this.priority;}
+
+    //Gets the date the task was created
+    public String getDateCreated() { return this.dateCreated;}
+
+    //Gets the current date and time
+    public String getCurrentDate(){
+        //Create the correct format
+        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("MMM d, y @ h:mma");
+        //Get the current date
+        LocalDateTime currentDate = LocalDateTime.now();
+        String date = currentDate.format(formatDate);
+        return date;
+    }
 
     //Gets the position of the priority in the priorities array
     public Integer getPriorityPosition(String priority){
