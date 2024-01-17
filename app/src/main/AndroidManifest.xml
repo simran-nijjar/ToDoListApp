@@ -16,6 +16,14 @@
             android:exported="true"
             android:label="Add Task"
             android:parentActivityName=".MainPage"/>
+        <activity android:name=".CompletedTasks"
+            android:exported="true"
+            android:label="Add Task"
+            android:parentActivityName=".MainPage"/>
+        <activity android:name=".CompletedTaskDetails"
+            android:exported="true"
+            android:label="Add Task"
+            android:parentActivityName=".CompletedTasks"/>
         <activity
             android:name=".MainPage"
             android:exported="true"

@@ -13,4 +13,7 @@
     <string name="save_task_manager">Save task manager</string>
     <string name="my_object">My object</string>
     <string name="no_manager_saved">No manager saved</string>
+    <string name="complete_task_msg">Are you sure you want to mark task as complete?</string>
+    <string name="complete">Complete</string>
+    <string name="selected_completed_task_position">selected completed task position</string>
 </resources>

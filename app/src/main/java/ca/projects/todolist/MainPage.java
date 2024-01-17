@@ -57,11 +57,13 @@ public class MainPage extends AppCompatActivity {
         else {
             setContentView(R.layout.activity_main);
             populateTasksListView();
+            //Spinner details
+            addSortBySpinnerDetails();
         }
-        //Spinner details
-        addSortBySpinnerDetails();
         //Add new task button
         addNewTaskBtnClicked();
+        //Completed tasks button
+        completedTasksBtnClicked();
     }
 
     //Add details to spinner to sort tasks alphabetically, by priority, or date created
@@ -114,6 +116,24 @@ public class MainPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    //Button to add new tasks
+    private void completedTasksBtnClicked(){
+        Button btn = findViewById(R.id.completedTasksBtn);
+        if (taskManager.anyTasksCompleted == true) {
+            btn.setVisibility(View.VISIBLE);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = CompletedTasks.makeIntent(MainPage.this);
+                    startActivity(intent);
+                }
+            });
+        }
+        else{
+            btn.setVisibility(View.INVISIBLE);
+        }
     }
 
     //Populates list view with tasks if there are any

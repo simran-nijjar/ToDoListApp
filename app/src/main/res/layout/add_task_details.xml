@@ -13,7 +13,7 @@
         android:text="Delete"
         app:layout_constraintEnd_toStartOf="@+id/saveTaskBtn"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/taskTitleTxt"
+        app:layout_constraintStart_toStartOf="@+id/completedTaskTitleTxt"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -26,22 +26,22 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/taskTitleTxt"
+        app:layout_constraintStart_toEndOf="@+id/completedTaskTitleTxt"
         app:layout_constraintTop_toBottomOf="@+id/deleteTaskBtn" />
 
     <TextView
-        android:id="@+id/taskNotesTxt"
+        android:id="@+id/completedTaskNotesTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
         android:text="Notes"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/taskTitleTxt"
-        app:layout_constraintTop_toBottomOf="@+id/taskTitleTxt" />
+        app:layout_constraintStart_toStartOf="@+id/completedTaskTitleTxt"
+        app:layout_constraintTop_toBottomOf="@+id/completedTaskTitleTxt" />
 
     <TextView
-        android:id="@+id/taskTitleTxt"
+        android:id="@+id/completedTaskTitleTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
@@ -53,15 +53,15 @@
         app:layout_constraintTop_toBottomOf="@+id/deleteTaskBtn" />
 
     <TextView
-        android:id="@+id/taskPriorityTxt"
+        android:id="@+id/completedTaskPriorityTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:text="Priority"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/taskTitleTxt"
-        app:layout_constraintTop_toBottomOf="@+id/taskNotesTxt" />
+        app:layout_constraintStart_toStartOf="@+id/completedTaskTitleTxt"
+        app:layout_constraintTop_toBottomOf="@+id/completedTaskNotesTxt" />
 
     <EditText
         android:id="@+id/taskNotesInput"
@@ -72,7 +72,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/taskTitleInput"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/taskNotesTxt"
+        app:layout_constraintStart_toEndOf="@+id/completedTaskNotesTxt"
         app:layout_constraintTop_toBottomOf="@+id/taskTitleInput" />
 
     <Button
@@ -95,7 +95,7 @@
         android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="@+id/taskTitleInput"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/taskPriorityTxt"
+        app:layout_constraintStart_toEndOf="@+id/completedTaskPriorityTxt"
         app:layout_constraintTop_toBottomOf="@+id/taskNotesInput" />
 
     <TextView
@@ -106,8 +106,8 @@
         android:text="Date Created"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/taskPriorityTxt"
-        app:layout_constraintTop_toBottomOf="@+id/taskPriorityTxt" />
+        app:layout_constraintStart_toStartOf="@+id/completedTaskPriorityTxt"
+        app:layout_constraintTop_toBottomOf="@+id/completedTaskPriorityTxt" />
 
     <TextView
         android:id="@+id/dateCreatedTxt"
@@ -119,5 +119,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.165"
         app:layout_constraintStart_toEndOf="@+id/dateCreatedTitleTxt"
-        app:layout_constraintTop_toBottomOf="@+id/taskPriorityTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/completedTaskPriorityTxt" />
+
+    <Button
+        android:id="@+id/completeTaskBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Complete Task"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/taskPrioritySpinner"
+        app:layout_constraintStart_toStartOf="@+id/dateCreatedTitleTxt"
+        app:layout_constraintTop_toBottomOf="@+id/dateCreatedTxt" />
 </androidx.constraintlayout.widget.ConstraintLayout>

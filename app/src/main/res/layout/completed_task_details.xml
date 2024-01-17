@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/completedTaskNotesTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:text="Notes"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/completedTaskTitleTxt"
+        app:layout_constraintTop_toBottomOf="@+id/completedTaskTitleTxt" />
+
+    <TextView
+        android:id="@+id/completedTaskTitleTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="56dp"
+        android:text="Title"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/completedTaskPriorityTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="108dp"
+        android:text="Priority"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/completedTaskTitleTxt"
+        app:layout_constraintTop_toBottomOf="@+id/completedTaskNotesTxt" />
+
+    <TextView
+        android:id="@+id/completedTaskTitleDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.178"
+        app:layout_constraintStart_toEndOf="@+id/completedTaskTitleTxt"
+        app:layout_constraintTop_toTopOf="@+id/completedTaskTitleTxt" />
+
+    <TextView
+        android:id="@+id/completedTaskNotesDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintStart_toEndOf="@+id/completedTaskNotesTxt"
+        app:layout_constraintTop_toTopOf="@+id/completedTaskNotesTxt" />
+
+    <TextView
+        android:id="@+id/completedTaskPriorityDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintStart_toEndOf="@+id/completedTaskPriorityTxt"
+        app:layout_constraintTop_toTopOf="@+id/completedTaskPriorityTxt" />
+
+    <TextView
+        android:id="@+id/completedTaskDateCreatedTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:text="Date Created"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/completedTaskPriorityTxt"
+        app:layout_constraintTop_toBottomOf="@+id/completedTaskPriorityTxt" />
+
+    <TextView
+        android:id="@+id/completedTaskDateCreatedDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.103"
+        app:layout_constraintStart_toEndOf="@+id/completedTaskDateCreatedTxt"
+        app:layout_constraintTop_toTopOf="@+id/completedTaskDateCreatedTxt" />
+
+    <TextView
+        android:id="@+id/completedTaskDateCompletedTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:text="Date Completed"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/completedTaskDateCreatedTxt"
+        app:layout_constraintTop_toBottomOf="@+id/completedTaskDateCreatedTxt"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/completedTaskDateCompletedDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/completedTaskDateCompletedTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.138"
+        app:layout_constraintStart_toEndOf="@+id/completedTaskDateCompletedTxt"
+        app:layout_constraintTop_toTopOf="@+id/completedTaskDateCompletedTxt" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

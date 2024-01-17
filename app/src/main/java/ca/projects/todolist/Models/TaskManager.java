@@ -10,13 +10,18 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 
+import kotlinx.coroutines.scheduling.Task;
+
 //This class stores the collection of tasks
 public class TaskManager implements Iterable<TaskToDo> {
     private List<TaskToDo> taskCollection = new ArrayList<>();
+    private List<TaskToDo> completedTaskCollection = new ArrayList<>();
     private static TaskManager instance;
     private int indexofCurrentTask;
     private int indexofSortOption;
     public String priorities[] = {"Low", "Medium", "High"};
+    public boolean anyTasksCompleted = false;
+    private int indexofCurrentCompletedTask;
 
     //Constructor
     private TaskManager(){
@@ -40,6 +45,9 @@ public class TaskManager implements Iterable<TaskToDo> {
             taskCollection.remove(index);
     }
 
+    //Adds a task to the completed task list
+    public synchronized void addCompletedTask(TaskToDo task) {completedTaskCollection.add(task);}
+
     //Returns size of task manager
     public Integer getTaskManagerSize(){
         return taskCollection.size();
@@ -50,13 +58,18 @@ public class TaskManager implements Iterable<TaskToDo> {
         return taskCollection.get(index);
     }
 
+    //Returns completed task at specific index
+    public TaskToDo getCompletedTaskAtIndex(Integer index){
+        return completedTaskCollection.get(index);
+    }
+
     //Gets index of the current task
     public int getIndexofCurrentTask(){
         return indexofCurrentTask;
     }
 
     //Gets index of the selected sort option
-    public int getIndexofSortOption(){ return  indexofSortOption; }
+    public int getIndexofSortOption(){ return indexofSortOption; }
 
     //Sets the index of the selected task from the list view
     public void setIndexofCurrentTask(int indexofCurrentTask){
@@ -68,10 +81,26 @@ public class TaskManager implements Iterable<TaskToDo> {
         this.indexofSortOption = indexofSortOption;
     }
 
+    //Returns boolean of any tasks completed
+    public boolean getAreAnyTasksCompleted() { return anyTasksCompleted;}
+
+    //Sets boolean to true if any tasks are completed
+    public void setAnyTasksCompleted(boolean anyTasksCompleted) {
+        this.anyTasksCompleted = anyTasksCompleted;
+    }
+
     //Adds task to index given
     public void addTaskToIndex(TaskToDo task, int index){
         taskCollection.set(index, task);
     }
+
+    //Sets the index of the selected completed task from the list view
+    public void setIndexofCurrentCompletedTask(int indexofCurrentCompletedTask){
+        this.indexofCurrentCompletedTask = indexofCurrentCompletedTask;
+    }
+
+    //Gets index of the current completed task
+    public int getIndexofCurrentCompletedTask(){ return indexofCurrentCompletedTask;}
 
     //Returns the priorities array
     public String[] getPriorities(){return this.priorities;}
@@ -81,6 +110,9 @@ public class TaskManager implements Iterable<TaskToDo> {
 
     //Sets the list of tasks
     public void setListOfTasks(List<TaskToDo> newList) {this.taskCollection = newList;}
+
+    //Returns the list of completed tasks
+    public List<TaskToDo> getListofCompletedTasks() {return completedTaskCollection;}
 
     //Sorts items in to do list alphabetically
     public void sortTasksAlphabetically() {

@@ -106,15 +106,19 @@ public class TaskDetails extends AppCompatActivity {
             taskTitleEditTxt.setText(taskTitle);
             taskNotesEditTxt.setText(taskNotes);
             prioritySpinner.setSelection(task.getPriorityPosition(taskPriority));
+            //Display delete and complete task buttons
             displayDeleteTaskBtn(currentPosition);
+            displayCompleteTaskBtn(currentPosition);
         }
         //Else if new task is being added
         else {
             ab.setTitle("Add Task Details");
             task = new TaskToDo("", "", "");
-            //Hide delete button and date task is created
-            Button btn = findViewById(R.id.deleteTaskBtn);
-            btn.setVisibility(View.INVISIBLE);
+            //Hide delete and complete task button and date task is created
+            Button deleteBtn = findViewById(R.id.deleteTaskBtn);
+            deleteBtn.setVisibility(View.INVISIBLE);
+            Button completeBtn = findViewById(R.id.completeTaskBtn);
+            completeBtn.setVisibility(View.INVISIBLE);
             dateCreatedTitleTxt.setVisibility(View.INVISIBLE);
             taskDateCreatedEditTxt.setVisibility(View.INVISIBLE);
         }
@@ -245,6 +249,38 @@ public class TaskDetails extends AppCompatActivity {
                         .setCancelable(false)
                         .setPositiveButton(getString(R.string.delete), (dialog, id) -> {
                             TaskManager taskManager = TaskManager.getInstance();
+                            taskManager.deleteTask(position);
+                            toSaveUsingGsonAndSP.saveToSharedRefs(TaskDetails.this);
+                            Intent intent = new Intent(TaskDetails.this, MainPage.class);
+                            startActivity(intent);
+
+                        })
+                        .setNegativeButton(getString(R.string.cancel), (dialog, id) -> dialog.cancel());
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+    }
+
+    //Display complete task button for when task is being edited
+    private void displayCompleteTaskBtn(int position){
+        Button btn = findViewById(R.id.completeTaskBtn);
+        btn.setVisibility(View.VISIBLE);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Alert dialog to confirm with user if task should be marked as completed
+                AlertDialog.Builder builder = new AlertDialog.Builder(TaskDetails.this);
+                builder.setMessage(getString(R.string.complete_task_msg))
+                        .setCancelable(false)
+                        .setPositiveButton(getString(R.string.complete), (dialog, id) -> {
+                            TaskManager taskManager = TaskManager.getInstance();
+                            taskManager.setAnyTasksCompleted(true);
+                            //Add task to completed task list
+                            TaskToDo task = taskManager.getTaskAtIndex(position);
+                            task.setDateCompleted();
+                            taskManager.addCompletedTask(task);
+                            //Remove task from to do list
                             taskManager.deleteTask(position);
                             toSaveUsingGsonAndSP.saveToSharedRefs(TaskDetails.this);
                             Intent intent = new Intent(TaskDetails.this, MainPage.class);

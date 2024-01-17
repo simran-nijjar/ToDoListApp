@@ -10,6 +10,8 @@ public class TaskToDo {
     private String priority;
     private String dateCreated;
     public String priorities[] = {"Low", "Medium", "High"};
+    private boolean isTaskCompleted;
+    private String dateCompleted;
 
     //Constructor
     public TaskToDo(String title, String notes, String priority){
@@ -17,6 +19,7 @@ public class TaskToDo {
         this.notes = notes;
         this.priority = priority;
         this.dateCreated = getCurrentDate();
+        this.isTaskCompleted = false;
     }
 
     //Getter function for the title of the task
@@ -34,6 +37,9 @@ public class TaskToDo {
 
     //Gets the date the task was created
     public String getDateCreated() { return this.dateCreated;}
+
+    //Gets the date the task was completed
+    public String getDateCompleted(){ return this.dateCompleted;}
 
     //Gets the current date and time
     public String getCurrentDate(){
@@ -68,6 +74,9 @@ public class TaskToDo {
         return priority;
     }
 
+    //Gets task completion status
+    public boolean getIsTaskCompleted(){return this.isTaskCompleted;}
+
     //Sets title of the task
     public void setTitle(String title){
         this.title = title;
@@ -80,4 +89,10 @@ public class TaskToDo {
 
     //Sets priority of the task
     public void setPriority(String priority){this.priority = priority;}
+
+    //Sets date task is completed
+    public void setDateCompleted(){
+        this.dateCompleted = getCurrentDate();
+        this.isTaskCompleted = true;
+    }
 }

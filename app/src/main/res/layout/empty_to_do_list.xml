@@ -5,6 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/completedTasksBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Completed Tasks"
+        app:layout_constraintEnd_toStartOf="@+id/addTaskBtn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tasksListView"
+        app:layout_constraintTop_toTopOf="@+id/addTaskBtn" />
+
     <ListView
         android:id="@+id/tasksListView"
         android:layout_width="349dp"
