@@ -18,6 +18,7 @@ import ca.projects.todolist.Models.SaveUsingGson;
 import ca.projects.todolist.Models.TaskManager;
 import ca.projects.todolist.Models.TaskToDo;
 
+//This class displays all of the tasks the user has completed
 public class CompletedTasks extends AppCompatActivity {
     //Create task manager object to manage tasks
     private TaskManager taskManager = TaskManager.getInstance();
@@ -73,7 +74,7 @@ public class CompletedTasks extends AppCompatActivity {
 
     private class MyListAdapter extends ArrayAdapter<TaskToDo> {
         public MyListAdapter() {
-            super(CompletedTasks.this, R.layout.completed_tasks, taskManager.getListofCompletedTasks());
+            super(CompletedTasks.this, R.layout.completed_tasks, taskManager.getListOfCompletedTasks());
         }
         @Override
         public View getView(int position, View convertView, ViewGroup parent){
@@ -96,8 +97,8 @@ public class CompletedTasks extends AppCompatActivity {
     private void registerClickCallBack(){
         ListView list = findViewById(R.id.completedTasksListView);
         list.setOnItemClickListener((parent, viewClicked, position, id) -> {
-            taskManager.setIndexofCurrentCompletedTask(position);
-            //make an intent for view configuration activity
+            taskManager.setIndexOfCurrentCompletedTask(position);
+            //Make an intent for viewing completed tasks
             Intent intent = CompletedTaskDetails.makeIntent(CompletedTasks.this);
             intent.putExtra(getString(R.string.selected_completed_task_position), position);
             startActivity(intent);
@@ -115,7 +116,7 @@ public class CompletedTasks extends AppCompatActivity {
         );
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sortBySpinner.setAdapter(spinnerAdapter);
-        sortBySpinner.setSelection(taskManager.getIndexofSortOption());
+        sortBySpinner.setSelection(taskManager.getIndexOfSortOption());
 
         sortBySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -123,17 +124,17 @@ public class CompletedTasks extends AppCompatActivity {
                 //Handle sorting based on selected option
                 String selectedOption = (String) parentView.getItemAtPosition(position);
                 if ("Alphabetical".equals(selectedOption)) {
-                    taskManager.sortTasksAlphabetically(taskManager.getListofCompletedTasks());
+                    taskManager.sortTasksAlphabetically(taskManager.getListOfCompletedTasks());
                 } else if ("Priority".equals(selectedOption)) {
-                    taskManager.sortTasksByPriority(taskManager.getListofCompletedTasks());
+                    taskManager.sortTasksByPriority(taskManager.getListOfCompletedTasks());
                 } else if ("Date Completed".equals(selectedOption)){
-                    taskManager.sortTasksByDateCompleted(taskManager.getListofCompletedTasks());
+                    taskManager.sortTasksByDateCompleted(taskManager.getListOfCompletedTasks());
                 }
                 //Update the ListView
                 ListView list = findViewById(R.id.completedTasksListView);
                 ArrayAdapter<TaskToDo> adapter = (ArrayAdapter<TaskToDo>) list.getAdapter();
                 adapter.notifyDataSetChanged();
-                taskManager.setIndexofSortOption(sortBySpinner.getSelectedItemPosition());
+                taskManager.setIndexOfSortOption(sortBySpinner.getSelectedItemPosition());
                 toSaveUsingGsonAndSP.saveToSharedRefs(CompletedTasks.this);
             }
 

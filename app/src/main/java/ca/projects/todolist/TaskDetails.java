@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -90,7 +89,7 @@ public class TaskDetails extends AppCompatActivity {
             ab.setTitle("Edit Task Details");
             //Get the position of the task selected
             int selectedTaskPosition = b.getInt(getString(R.string.selected_task_position));
-            int currentPosition = taskManager.getIndexofCurrentTask();
+            int currentPosition = taskManager.getIndexOfCurrentTask();
             task = taskManager.getTaskAtIndex(currentPosition);
 
             //Get the string values of the task selected

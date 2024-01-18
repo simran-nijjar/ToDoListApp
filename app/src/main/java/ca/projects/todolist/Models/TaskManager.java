@@ -13,11 +13,11 @@ public class TaskManager implements Iterable<TaskToDo> {
     private List<TaskToDo> taskCollection = new ArrayList<>();
     private List<TaskToDo> completedTaskCollection = new ArrayList<>();
     private static TaskManager instance;
-    private int indexofCurrentTask;
-    private int indexofSortOption;
+    private int indexOfCurrentTask;
+    private int indexOfSortOption;
     public String priorities[] = {"Low", "Medium", "High"};
     public boolean anyTasksCompleted = false;
-    private int indexofCurrentCompletedTask;
+    private int indexOfCurrentCompletedTask;
 
     //Constructor
     private TaskManager(){
@@ -49,7 +49,7 @@ public class TaskManager implements Iterable<TaskToDo> {
         return taskCollection.size();
     }
 
-    public Integer getCompletedTasksSize(){ return completedTaskCollection.size();};
+    public Integer getCompletedTasksSize(){ return completedTaskCollection.size();}
 
     //Returns task at specific index
     public TaskToDo getTaskAtIndex(Integer index){
@@ -62,21 +62,21 @@ public class TaskManager implements Iterable<TaskToDo> {
     }
 
     //Gets index of the current task
-    public int getIndexofCurrentTask(){
-        return indexofCurrentTask;
+    public int getIndexOfCurrentTask(){
+        return indexOfCurrentTask;
     }
 
     //Gets index of the selected sort option
-    public int getIndexofSortOption(){ return indexofSortOption; }
+    public int getIndexOfSortOption(){ return indexOfSortOption; }
 
     //Sets the index of the selected task from the list view
-    public void setIndexofCurrentTask(int indexofCurrentTask){
-        this.indexofCurrentTask = indexofCurrentTask;
+    public void setIndexOfCurrentTask(int indexOfCurrentTask){
+        this.indexOfCurrentTask = indexOfCurrentTask;
     }
 
     //Sets the index of the selected sort option
-    public void setIndexofSortOption(int indexofSortOption){
-        this.indexofSortOption = indexofSortOption;
+    public void setIndexOfSortOption(int indexOfSortOption){
+        this.indexOfSortOption = indexOfSortOption;
     }
 
     //Returns boolean of any tasks completed
@@ -93,12 +93,12 @@ public class TaskManager implements Iterable<TaskToDo> {
     }
 
     //Sets the index of the selected completed task from the list view
-    public void setIndexofCurrentCompletedTask(int indexofCurrentCompletedTask){
-        this.indexofCurrentCompletedTask = indexofCurrentCompletedTask;
+    public void setIndexOfCurrentCompletedTask(int indexOfCurrentCompletedTask){
+        this.indexOfCurrentCompletedTask = indexOfCurrentCompletedTask;
     }
 
     //Gets index of the current completed task
-    public int getIndexofCurrentCompletedTask(){ return indexofCurrentCompletedTask;}
+    public int getIndexOfCurrentCompletedTask(){ return indexOfCurrentCompletedTask;}
 
     //Returns the priorities array
     public String[] getPriorities(){return this.priorities;}
@@ -113,7 +113,7 @@ public class TaskManager implements Iterable<TaskToDo> {
     public void setListOfCompletedTasks(List<TaskToDo> newList) {this.completedTaskCollection = newList;}
 
     //Returns the list of completed tasks
-    public List<TaskToDo> getListofCompletedTasks() {return completedTaskCollection;}
+    public List<TaskToDo> getListOfCompletedTasks() {return completedTaskCollection;}
 
     //Sorts items in to do list alphabetically
     public void sortTasksAlphabetically(List<TaskToDo> collection) {

@@ -3,7 +3,6 @@ package ca.projects.todolist;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
@@ -13,6 +12,7 @@ import ca.projects.todolist.Models.SaveUsingGson;
 import ca.projects.todolist.Models.TaskManager;
 import ca.projects.todolist.Models.TaskToDo;
 
+//This class displays the details of the selected completed task
 public class CompletedTaskDetails extends AppCompatActivity {
     private TaskToDo task;
     private SaveUsingGson toSaveUsingGsonAndSP = new SaveUsingGson();
@@ -66,7 +66,7 @@ public class CompletedTaskDetails extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setTitle("Completed Task Details");
         //Get the position of the task selected
-        int currentPosition = taskManager.getIndexofCurrentCompletedTask();
+        int currentPosition = taskManager.getIndexOfCurrentCompletedTask();
         task = taskManager.getCompletedTaskAtIndex(currentPosition);
 
         //Get the string values of the task selected
@@ -76,14 +76,14 @@ public class CompletedTaskDetails extends AppCompatActivity {
         taskDateCreated = String.valueOf(task.getDateCreated());
         taskDateCompleted = String.valueOf(task.getDateCompleted());
 
-        //Add the string value of task selected to the input fields
+        //Add the string value of task selected to the text fields
         taskTitleTxt.setText(taskTitle);
         taskNotesTxt.setText(taskNotes);
         taskPriorityTxt.setText(taskPriority);
         taskDateCreatedTxt.setText(taskDateCreated);
         taskDateCompletedTxt.setText(taskDateCompleted);
 
-        //to save config manager
+        //To save config manager
         toSaveUsingGsonAndSP.saveToSharedRefs(CompletedTaskDetails.this);
     }
 }

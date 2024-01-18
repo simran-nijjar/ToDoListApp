@@ -4,7 +4,6 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -34,7 +33,7 @@ public class SaveUsingGson {
         editor.putString(context.getString(R.string.my_object), json);
 
         //List of tasks completed
-        json = gson.toJson(manager.getListofCompletedTasks());
+        json = gson.toJson(manager.getListOfCompletedTasks());
         editor.putString(context.getString(R.string.my_object_task_completed), json);
         editor.apply();
     }

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -77,7 +76,7 @@ public class MainPage extends AppCompatActivity {
         );
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sortBySpinner.setAdapter(spinnerAdapter);
-        sortBySpinner.setSelection(taskManager.getIndexofSortOption());
+        sortBySpinner.setSelection(taskManager.getIndexOfSortOption());
 
         sortBySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -95,7 +94,7 @@ public class MainPage extends AppCompatActivity {
                 ListView list = findViewById(R.id.tasksListView);
                 ArrayAdapter<TaskToDo> adapter = (ArrayAdapter<TaskToDo>) list.getAdapter();
                 adapter.notifyDataSetChanged();
-                taskManager.setIndexofSortOption(sortBySpinner.getSelectedItemPosition());
+                taskManager.setIndexOfSortOption(sortBySpinner.getSelectedItemPosition());
                 toSaveUsingGsonAndSP.saveToSharedRefs(MainPage.this);
             }
 
@@ -163,8 +162,8 @@ public class MainPage extends AppCompatActivity {
     private void registerClickCallBack(){
         ListView list = findViewById(R.id.tasksListView);
         list.setOnItemClickListener((parent, viewClicked, position, id) -> {
-            taskManager.setIndexofCurrentTask(position);
-            //make an intent for view configuration activity
+            taskManager.setIndexOfCurrentTask(position);
+            //Make an intent for main page
             Intent intent = TaskDetails.makeIntent(MainPage.this);
             intent.putExtra(getString(R.string.selected_task_position), position);
             startActivity(intent);
