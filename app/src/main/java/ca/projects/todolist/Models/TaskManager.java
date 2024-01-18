@@ -1,7 +1,5 @@
 package ca.projects.todolist.Models;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import java.util.Collections;
@@ -132,7 +130,7 @@ public class TaskManager implements Iterable<TaskToDo> {
         Collections.sort(collection, new Comparator<TaskToDo>() {
             @Override
             public int compare(TaskToDo task1, TaskToDo task2) {
-                return task1.getPriorityPosition(task1.getPriority()).compareTo(task2.getPriorityPosition(task2.getPriority()));
+                return task2.getPriorityPosition(task2.getPriority()).compareTo(task1.getPriorityPosition(task1.getPriority()));
             }
         });
     }
