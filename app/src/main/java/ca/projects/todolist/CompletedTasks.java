@@ -24,11 +24,7 @@ public class CompletedTasks extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.completed_tasks);
-        ActionBar ab = getSupportActionBar();
-        ab.setTitle("Completed Tasks");
-        populateCompletedTasksListView();
-        registerClickCallBack();
+        getCompletedTasksDetails();
         //Retrieve config manager
         toSaveUsingGsonAndSP.retrieveFromSharedPrefs(this);
         //To save config manager
@@ -38,10 +34,25 @@ public class CompletedTasks extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        populateCompletedTasksListView();
-        registerClickCallBack();
+        getCompletedTasksDetails();
         //To save config manager
         toSaveUsingGsonAndSP.saveToSharedRefs(this);
+    }
+
+    //Gets details for completed tasks page
+    private void getCompletedTasksDetails() {
+        ActionBar ab = getSupportActionBar();
+        ab.setTitle("Completed Tasks");
+        //Display empty page if no tasks have been completed
+        if (taskManager.getCompletedTasksSize() == 0){
+            setContentView(R.layout.empty_completed_tasks);
+        }
+        //Else display the list of completed tasks
+        else {
+            setContentView(R.layout.completed_tasks);
+            populateCompletedTasksListView();
+            registerClickCallBack();
+        }
     }
 
     //Makes an intent and returns it

@@ -16,4 +16,5 @@
     <string name="complete_task_msg">Are you sure you want to mark task as complete?</string>
     <string name="complete">Complete</string>
     <string name="selected_completed_task_position">selected completed task position</string>
+    <string name="my_object_task_completed">My object task completed</string>
 </resources>

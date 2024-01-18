@@ -10,8 +10,6 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 
-import kotlinx.coroutines.scheduling.Task;
-
 //This class stores the collection of tasks
 public class TaskManager implements Iterable<TaskToDo> {
     private List<TaskToDo> taskCollection = new ArrayList<>();
@@ -52,6 +50,8 @@ public class TaskManager implements Iterable<TaskToDo> {
     public Integer getTaskManagerSize(){
         return taskCollection.size();
     }
+
+    public Integer getCompletedTasksSize(){ return completedTaskCollection.size();};
 
     //Returns task at specific index
     public TaskToDo getTaskAtIndex(Integer index){
@@ -110,6 +110,9 @@ public class TaskManager implements Iterable<TaskToDo> {
 
     //Sets the list of tasks
     public void setListOfTasks(List<TaskToDo> newList) {this.taskCollection = newList;}
+
+    //Sets the list of completed tasks
+    public void setListOfCompletedTasks(List<TaskToDo> newList) {this.completedTaskCollection = newList;}
 
     //Returns the list of completed tasks
     public List<TaskToDo> getListofCompletedTasks() {return completedTaskCollection;}

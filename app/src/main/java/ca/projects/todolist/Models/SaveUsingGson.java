@@ -29,8 +29,13 @@ public class SaveUsingGson {
         this.context = newContext;
         newPrefs = context.getSharedPreferences(context.getString(R.string.save_task_manager),MODE_PRIVATE);
         editor = newPrefs.edit();
+        //List of tasks to do
         json = gson.toJson(manager.getListOfTasks());
         editor.putString(context.getString(R.string.my_object), json);
+
+        //List of tasks completed
+        json = gson.toJson(manager.getListofCompletedTasks());
+        editor.putString(context.getString(R.string.my_object_task_completed), json);
         editor.apply();
     }
 
@@ -42,6 +47,10 @@ public class SaveUsingGson {
         json = newPrefs.getString(context.getString(R.string.my_object), context.getString(R.string.no_manager_saved));
         if (!Objects.equals(json, context.getString(R.string.no_manager_saved))) {
             manager.setListOfTasks(gson.fromJson(json, listType));
+        }
+        json = newPrefs.getString(context.getString(R.string.my_object_task_completed), context.getString(R.string.no_manager_saved));
+        if (!Objects.equals(json, context.getString(R.string.no_manager_saved))){
+            manager.setListOfCompletedTasks(gson.fromJson(json, listType));
         }
     }
 }

@@ -231,6 +231,7 @@ public class TaskDetails extends AppCompatActivity {
             intent.putExtra(EXTRA_NOTES, taskNotes);
             intent.putExtra(EXTRA_PRIORITY, taskPriority);
             intent.putExtra(EXTRA_DATE_CREATED, task.getDateCreated());
+            startActivity(intent);
         }
         finish();
         toSaveUsingGsonAndSP.saveToSharedRefs(TaskDetails.this);

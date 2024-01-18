@@ -121,7 +121,6 @@ public class MainPage extends AppCompatActivity {
     //Button to add new tasks
     private void completedTasksBtnClicked(){
         Button btn = findViewById(R.id.completedTasksBtn);
-        if (taskManager.anyTasksCompleted == true) {
             btn.setVisibility(View.VISIBLE);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -130,10 +129,6 @@ public class MainPage extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-        }
-        else{
-            btn.setVisibility(View.INVISIBLE);
-        }
     }
 
     //Populates list view with tasks if there are any
