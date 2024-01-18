@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
@@ -52,6 +54,7 @@ public class CompletedTasks extends AppCompatActivity {
             setContentView(R.layout.completed_tasks);
             populateCompletedTasksListView();
             registerClickCallBack();
+            addSortBySpinnerDetails();
         }
     }
 
@@ -98,6 +101,46 @@ public class CompletedTasks extends AppCompatActivity {
             Intent intent = CompletedTaskDetails.makeIntent(CompletedTasks.this);
             intent.putExtra(getString(R.string.selected_completed_task_position), position);
             startActivity(intent);
+        });
+    }
+
+    //Add details to spinner to sort tasks alphabetically, by priority, or date completed
+    private void addSortBySpinnerDetails() {
+        //Add spinner options
+        Spinner sortBySpinner = findViewById(R.id.sortByCompletedTasksSpinner);
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.sort_completed_options,  // Define string array in resources/values/arrays.xml
+                android.R.layout.simple_spinner_item
+        );
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sortBySpinner.setAdapter(spinnerAdapter);
+        sortBySpinner.setSelection(taskManager.getIndexofSortOption());
+
+        sortBySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                //Handle sorting based on selected option
+                String selectedOption = (String) parentView.getItemAtPosition(position);
+                if ("Alphabetical".equals(selectedOption)) {
+                    taskManager.sortTasksAlphabetically(taskManager.getListofCompletedTasks());
+                } else if ("Priority".equals(selectedOption)) {
+                    taskManager.sortTasksByPriority(taskManager.getListofCompletedTasks());
+                } else if ("Date Completed".equals(selectedOption)){
+                    taskManager.sortTasksByDateCompleted(taskManager.getListofCompletedTasks());
+                }
+                //Update the ListView
+                ListView list = findViewById(R.id.completedTasksListView);
+                ArrayAdapter<TaskToDo> adapter = (ArrayAdapter<TaskToDo>) list.getAdapter();
+                adapter.notifyDataSetChanged();
+                taskManager.setIndexofSortOption(sortBySpinner.getSelectedItemPosition());
+                toSaveUsingGsonAndSP.saveToSharedRefs(CompletedTasks.this);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                //Do nothing
+            }
         });
     }
 }

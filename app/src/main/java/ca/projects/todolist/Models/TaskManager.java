@@ -118,8 +118,8 @@ public class TaskManager implements Iterable<TaskToDo> {
     public List<TaskToDo> getListofCompletedTasks() {return completedTaskCollection;}
 
     //Sorts items in to do list alphabetically
-    public void sortTasksAlphabetically() {
-        Collections.sort(taskCollection, new Comparator<TaskToDo>() {
+    public void sortTasksAlphabetically(List<TaskToDo> collection) {
+        Collections.sort(collection, new Comparator<TaskToDo>() {
             @Override
             public int compare(TaskToDo task1, TaskToDo task2) {
                 return task1.getTitle().compareToIgnoreCase(task2.getTitle());
@@ -128,8 +128,8 @@ public class TaskManager implements Iterable<TaskToDo> {
     }
 
     //Sorts items in to do list by priority
-    public void sortTasksByPriority(){
-        Collections.sort(taskCollection, new Comparator<TaskToDo>() {
+    public void sortTasksByPriority(List<TaskToDo> collection){
+        Collections.sort(collection, new Comparator<TaskToDo>() {
             @Override
             public int compare(TaskToDo task1, TaskToDo task2) {
                 return task1.getPriorityPosition(task1.getPriority()).compareTo(task2.getPriorityPosition(task2.getPriority()));
@@ -138,11 +138,21 @@ public class TaskManager implements Iterable<TaskToDo> {
     }
 
     //Sorts items in to do list by date created
-    public void sortTasksByDateCreated(){
-        Collections.sort(taskCollection, new Comparator<TaskToDo>() {
+    public void sortTasksByDateCreated(List<TaskToDo> collection){
+        Collections.sort(collection, new Comparator<TaskToDo>() {
             @Override
             public int compare(TaskToDo task1, TaskToDo task2) {
                 return task1.getDateCreated().compareTo(task2.getDateCreated());
+            }
+        });
+    }
+
+    //Sorts items in to do list by date created
+    public void sortTasksByDateCompleted(List<TaskToDo> collection){
+        Collections.sort(collection, new Comparator<TaskToDo>() {
+            @Override
+            public int compare(TaskToDo task1, TaskToDo task2) {
+                return task1.getDateCompleted().compareTo(task2.getDateCompleted());
             }
         });
     }

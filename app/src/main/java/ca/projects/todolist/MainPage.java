@@ -85,11 +85,11 @@ public class MainPage extends AppCompatActivity {
                 //Handle sorting based on selected option
                 String selectedOption = (String) parentView.getItemAtPosition(position);
                 if ("Alphabetical".equals(selectedOption)) {
-                    taskManager.sortTasksAlphabetically();
+                    taskManager.sortTasksAlphabetically(taskManager.getListOfTasks());
                 } else if ("Priority".equals(selectedOption)) {
-                    taskManager.sortTasksByPriority();
+                    taskManager.sortTasksByPriority(taskManager.getListOfTasks());
                 } else if ("Date Created".equals(selectedOption)){
-                    taskManager.sortTasksByDateCreated();
+                    taskManager.sortTasksByDateCreated(taskManager.getListOfTasks());
                 }
                 //Update the ListView
                 ListView list = findViewById(R.id.tasksListView);
