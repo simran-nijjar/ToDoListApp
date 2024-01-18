@@ -86,7 +86,7 @@ public class CompletedTasks extends AppCompatActivity {
             TaskToDo currentTask = taskManager.getCompletedTaskAtIndex(position);
             //Add task details to item in list view
             TextView makeText = itemView.findViewById(R.id.task_name_txt);
-            String taskName = currentTask.getPriorityExclamation() + " " + currentTask.getTitle() + "\n";
+            String taskName = currentTask.getTitle() + "\nCompleted: " + currentTask.getDateCompleted() + "\n";
             makeText.setText(taskName);
 
             return itemView;
