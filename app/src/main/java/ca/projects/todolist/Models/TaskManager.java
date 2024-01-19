@@ -155,6 +155,9 @@ public class TaskManager implements Iterable<TaskToDo> {
         });
     }
 
+    //Clears completed tasks
+    public void clearCompletedTasks(){completedTaskCollection.clear();}
+
     //Iterator to iterate through list
     @NonNull
     @Override

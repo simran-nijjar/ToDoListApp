@@ -1,8 +1,11 @@
 package ca.projects.todolist;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -11,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -143,5 +147,62 @@ public class CompletedTasks extends AppCompatActivity {
                 //Do nothing
             }
         });
+    }
+
+    //Action bar details
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.completed_tasks_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem deleteBtn = menu.findItem(R.id.action_delete);
+
+        // Check if there are completed tasks
+        if (taskManager.getCompletedTasksSize() == 0) {
+            // If no completed tasks, hide the delete button
+            deleteBtn.setVisible(false);
+        } else {
+            // If there are completed tasks, show the delete button
+            deleteBtn.setVisible(true);
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            //If the user clicks delete
+            case R.id.action_delete:
+                deleteBtnClicked();
+                return true;
+
+            //If the user clicks the up button
+            case android.R.id.home:
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    //This method confirms with user if they want to clear all of the tasks and clears when confirmed
+    private void deleteBtnClicked(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(CompletedTasks.this);
+        builder.setMessage(getString(R.string.delete_completed_tasks_msg))
+                .setCancelable(true)
+                .setPositiveButton(getString(R.string.delete), (dialog, id) -> {
+                    TaskManager taskManager = TaskManager.getInstance();
+                    taskManager.setAnyTasksCompleted(false);
+                    taskManager.clearCompletedTasks();
+                    toSaveUsingGsonAndSP.saveToSharedRefs(CompletedTasks.this);
+                })
+                .setNegativeButton(getString(R.string.cancel), (dialog, id) -> dialog.cancel());
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }
