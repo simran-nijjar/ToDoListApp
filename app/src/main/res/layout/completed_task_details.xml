@@ -6,40 +6,6 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/completedTaskNotesTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:text="Notes"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/completedTaskTitleTxt"
-        app:layout_constraintTop_toBottomOf="@+id/completedTaskTitleTxt" />
-
-    <TextView
-        android:id="@+id/completedTaskTitleTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="56dp"
-        android:text="Title"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/completedTaskPriorityTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
-        android:text="Priority"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/completedTaskTitleTxt"
-        app:layout_constraintTop_toBottomOf="@+id/completedTaskNotesTxt" />
-
-    <TextView
         android:id="@+id/completedTaskTitleDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,17 +40,6 @@
         app:layout_constraintTop_toTopOf="@+id/completedTaskPriorityTxt" />
 
     <TextView
-        android:id="@+id/completedTaskDateCreatedTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:text="Date Created"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/completedTaskPriorityTxt"
-        app:layout_constraintTop_toBottomOf="@+id/completedTaskPriorityTxt" />
-
-    <TextView
         android:id="@+id/completedTaskDateCreatedDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -94,6 +49,42 @@
         app:layout_constraintHorizontal_bias="0.103"
         app:layout_constraintStart_toEndOf="@+id/completedTaskDateCreatedTxt"
         app:layout_constraintTop_toTopOf="@+id/completedTaskDateCreatedTxt" />
+
+    <TextView
+        android:id="@+id/completedTaskDateCompletedDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/completedTaskDateCompletedTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.138"
+        app:layout_constraintStart_toEndOf="@+id/completedTaskDateCompletedTxt"
+        app:layout_constraintTop_toTopOf="@+id/completedTaskDateCompletedTxt" />
+
+    <Button
+        android:id="@+id/deleteCompletedTaskBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/completedTaskDateCompletedDetails"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/completedTaskDateCreatedTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="92dp"
+        android:text="Date Created"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/completedTaskPriorityTxt"
+        app:layout_constraintTop_toBottomOf="@+id/completedTaskPriorityTxt" />
 
     <TextView
         android:id="@+id/completedTaskDateCompletedTxt"
@@ -109,15 +100,37 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/completedTaskDateCompletedDetails"
+        android:id="@+id/completedTaskTitleTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
+        android:text="Title"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/completedTaskDateCompletedTxt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.138"
-        app:layout_constraintStart_toEndOf="@+id/completedTaskDateCompletedTxt"
-        app:layout_constraintTop_toTopOf="@+id/completedTaskDateCompletedTxt" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/completedTaskPriorityTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        android:text="Priority"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/completedTaskTitleTxt"
+        app:layout_constraintTop_toBottomOf="@+id/completedTaskNotesTxt" />
+
+    <TextView
+        android:id="@+id/completedTaskNotesTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="Notes"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/completedTaskTitleTxt"
+        app:layout_constraintTop_toBottomOf="@+id/completedTaskTitleTxt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

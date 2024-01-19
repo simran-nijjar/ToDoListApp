@@ -1,8 +1,11 @@
 package ca.projects.todolist;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
@@ -85,5 +88,33 @@ public class CompletedTaskDetails extends AppCompatActivity {
 
         //To save config manager
         toSaveUsingGsonAndSP.saveToSharedRefs(CompletedTaskDetails.this);
+        //Display delete button
+        displayDeleteTaskBtn(taskManager.getIndexOfCurrentCompletedTask());
+    }
+
+    //Display delete button for completed task
+    private void displayDeleteTaskBtn(int position){
+        Button btn = findViewById(R.id.deleteCompletedTaskBtn);
+        btn.setVisibility(View.VISIBLE);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Alert dialog to confirm with user if task should be deleted
+                AlertDialog.Builder builder = new AlertDialog.Builder(CompletedTaskDetails.this);
+                builder.setMessage(getString(R.string.delete_task_msg))
+                        .setCancelable(false)
+                        .setPositiveButton(getString(R.string.delete), (dialog, id) -> {
+                            TaskManager taskManager = TaskManager.getInstance();
+                            taskManager.deleteCompletedTask(position);
+                            toSaveUsingGsonAndSP.saveToSharedRefs(CompletedTaskDetails.this);
+                            Intent intent = new Intent(CompletedTaskDetails.this, CompletedTasks.class);
+                            startActivity(intent);
+
+                        })
+                        .setNegativeButton(getString(R.string.cancel), (dialog, id) -> dialog.cancel());
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
     }
 }

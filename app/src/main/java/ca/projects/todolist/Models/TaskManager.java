@@ -41,6 +41,9 @@ public class TaskManager implements Iterable<TaskToDo> {
             taskCollection.remove(index);
     }
 
+    //Removes a completed task from the completed task list
+    public synchronized void deleteCompletedTask(int index) { completedTaskCollection.remove(index);}
+
     //Adds a task to the completed task list
     public synchronized void addCompletedTask(TaskToDo task) {completedTaskCollection.add(task);}
 
