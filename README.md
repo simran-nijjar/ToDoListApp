@@ -8,6 +8,8 @@ ToDoListApp is built using Java in Android Studio.
 4. Sort tasks
 5. Mark tasks as completed
 6. View completed tasks
+7. Delete individual completed task
+8. Delete all completed tasks
 
 ## How to Run the Application:
 1. download or clone the repository: git clone https://github.com/simran-nijjar/ToDoListApp
